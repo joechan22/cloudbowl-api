@@ -19,6 +19,7 @@ var (
 	bar int = 100
 	consecutive int = 50
 	hitRange = 3
+	totalAttacks = 0
   )
 
 var lastS = lastState{}
@@ -63,7 +64,7 @@ func (l lastState) IsEmpty() bool {
 	return reflect.DeepEqual(l,lastState{})
   }
 
-  func decisionTree(arena ArenaUpdate) (response string) {
+func decisionTree(arena ArenaUpdate) (response string) {
 	if lastS.IsEmpty() {
 		lastS = lastState{"-", "-", 0}
 	}
