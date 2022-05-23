@@ -63,10 +63,11 @@ func (l lastState) IsEmpty() bool {
 	return reflect.DeepEqual(l,lastState{})
   }
 
-func decisionTree(arena ArenaUpdate) (response string) {
+  func decisionTree(arena ArenaUpdate) (response string) {
 	if lastS.IsEmpty() {
 		lastS = lastState{"-", "-", 0}
 	}
+	log.Println("last state ", lastS)
 	target := canThrow(arena)
 	if target != "" {
 		if target != lastS.lastTarget {
@@ -74,7 +75,8 @@ func decisionTree(arena ArenaUpdate) (response string) {
 			return throwCMD
 		}
 		if lastS.attacks <= consecutive {
-			lastS = lastState{target, throwCMD, lastS.attacks+1}
+			totalAttacks =  lastS.attacks+1
+			lastS = lastState{target, throwCMD, totalAttacks}
 			return throwCMD
 		}
 	}
