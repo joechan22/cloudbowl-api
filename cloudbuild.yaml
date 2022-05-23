@@ -18,6 +18,6 @@ steps:
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['run', 'deploy', '--image=gcr.io/$PROJECT_ID/cloudbowl-go-api:$COMMIT_SHA', '--platform=managed', '--project=$PROJECT_ID', '--region=us-central1', '--allow-unauthenticated', '--memory=256Mi', 'cloudbowl-go-api']
+  args: ['run', 'deploy', '--image=gcr.io/$PROJECT_ID/cloudbowl-go-api:$COMMIT_SHA', '--platform=managed', '--project=$PROJECT_ID', '--region=asia-east2', '--allow-unauthenticated', '--memory=256Mi', 'cloudbowl-go-api']
 images:
 - gcr.io/$PROJECT_ID/cloudbowl-go-api:$COMMIT_SHA
