@@ -1,7 +1,7 @@
-CloudBowl - Sample - Go
+For cloud run hosted by Google
 ---------------------------------
 
-To make changes, edit the `play` method in [`main.go`](./main.go)
+This project is based on the example
 
 To run the server locally:
 
