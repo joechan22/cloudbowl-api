@@ -46,9 +46,9 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	var v StateUpdate
 
 	defer req.Body.Close()
-	d := json.NewDecoder(req.Body)
+	decoder := json.NewDecoder(req.Body)
 	// d.DisallowUnknownFields()	//all field must be declared under the type struct
-	if err := d.Decode(&v); err != nil {
+	if err := decoder.Decode(&v); err != nil {
 		log.Printf("Error: failed to decode JSON in response body: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
