@@ -19,7 +19,7 @@ var (
 	consecutive int = 8		// this number needed to change
 	hitRange = 3
 	totalAttacks = 0
-  )
+)
 
 var lastS = lastState{}
 
@@ -46,7 +46,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 	defer req.Body.Close()
 	decoder := json.NewDecoder(req.Body)
-	// d.DisallowUnknownFields()	//all field must be declared under the type struct
+	// decoder.DisallowUnknownFields()	//all field must be declared under the type struct
 	if err := decoder.Decode(&v); err != nil {
 		log.Printf("Error: failed to decode JSON in response body: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -61,7 +61,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 func (l lastState) IsEmpty() bool {
 	return reflect.DeepEqual(l,lastState{})
-  }
+}
 
 func decisionTree(arena StateUpdate) (response string) {
 	if lastS.IsEmpty() {
