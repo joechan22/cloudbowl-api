@@ -1,6 +1,6 @@
 package main
 
-type ArenaUpdate struct {
+type StateUpdate struct {
 	Links struct {
 		Self struct {
 			Href string `json:"href"`

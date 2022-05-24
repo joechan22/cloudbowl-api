@@ -15,7 +15,7 @@ var (
 	forwardCMD string = "F"
 	leftCMD string = "L"
 	rightCMD string = "R"
-	actions []string = []string{"F", "R", "L", "T"}
+	actions []string = []string{"F", "R", "L"}
 	bar int = 100
 	consecutive int = 50
 	hitRange = 3
@@ -31,25 +31,25 @@ func main() {
 	}
 	http.HandleFunc("/", handler)
 
-	log.Printf("starting server on port :%s", port)
+	log.Printf("The server was started on port :%s", port)
 	err := http.ListenAndServe(":"+port, nil)
-	log.Fatalf("http listen error: %v", err)
+	log.Fatalf("Error occured: %v", err)
 }
 
 func handler(w http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		fmt.Fprint(w, "only POST method supported")
+		fmt.Fprint(w, "only support HTTP POST")
 		return
 	}
 
-	var v ArenaUpdate
+	var v StateUpdate
 
 	defer req.Body.Close()
 	d := json.NewDecoder(req.Body)
 	// d.DisallowUnknownFields()	//all field must be declared under the type struct
 	if err := d.Decode(&v); err != nil {
-		log.Printf("WARN: failed to decode ArenaUpdate in response body: %v", err)
+		log.Printf("Error: failed to decode JSON in response body: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -64,7 +64,7 @@ func (l lastState) IsEmpty() bool {
 	return reflect.DeepEqual(l,lastState{})
   }
 
-func decisionTree(arena ArenaUpdate) (response string) {
+func decisionTree(arena StateUpdate) (response string) {
 	if lastS.IsEmpty() {
 		lastS = lastState{"-", "-", 0}
 	}
@@ -93,11 +93,11 @@ func decisionTree(arena ArenaUpdate) (response string) {
 	return action
 }
 
-// func (ds ArenaUpdate) copy() *ArenaUpdate {
+// func (ds StateUpdate) copy() *StateUpdate {
 // 	return &ds
 // }
 
-func getNearest(data ArenaUpdate, depth int) (action string) {
+func getNearest(data StateUpdate, depth int) (action string) {
 	selfLink := data.Links.Self.Href
 	states := data.Arena.State
 	myInfo := states[selfLink]
@@ -232,7 +232,7 @@ func getNearest(data ArenaUpdate, depth int) (action string) {
 	return alterWay
 }
 
-func randMove(data ArenaUpdate) (action string) {
+func randMove(data StateUpdate) (action string) {
 
 	selfLink := data.Links.Self.Href
 	states := data.Arena.State
@@ -325,7 +325,7 @@ func randMove(data ArenaUpdate) (action string) {
 	return nextAction
 }
 
-func canThrow(data ArenaUpdate) (url string) {
+func canThrow(data StateUpdate) (url string) {
 	selfLink := data.Links.Self.Href
 	states := data.Arena.State
 	myInfo := states[selfLink]
