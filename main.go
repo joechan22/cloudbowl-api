@@ -16,7 +16,7 @@ var (
 	leftCMD string = "L"
 	rightCMD string = "R"
 	actions []string = []string{"L", "R", "F"}
-	consecutive int = 8		// this number needed to change
+	consecutive int = 15		// this number needed to change
 	hitRange = 3
 	totalAttacks = 0
 )
