@@ -15,9 +15,8 @@ var (
 	forwardCMD string = "F"
 	leftCMD string = "L"
 	rightCMD string = "R"
-	actions []string = []string{"F", "R", "L"}
-	bar int = 100
-	consecutive int = 50
+	actions []string = []string{"L", "R", "F"}
+	consecutive int = 8		// this number needed to change
 	hitRange = 3
 	totalAttacks = 0
   )
