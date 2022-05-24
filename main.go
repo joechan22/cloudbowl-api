@@ -328,7 +328,6 @@ func canThrow(data StateUpdate) (url string) {
 	selfLink := data.Links.Self.Href
 	states := data.Arena.State
 	myInfo := states[selfLink]
-	fmt.Println(selfLink, myInfo)
 	for k, v := range states {
 		if k == selfLink {
 			continue

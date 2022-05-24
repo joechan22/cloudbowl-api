@@ -21,8 +21,8 @@ type PlayerState struct {
 }
 
 type lastState struct {
-	lastAction	string
 	lastTarget	string
+	lastAction	string
 	attacks	int
 }
 
