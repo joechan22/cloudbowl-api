@@ -24,7 +24,7 @@ var (
 var lastS = lastState{}
 
 func main() {
-	port := "8083"
+	port := "8080"
 	if v := os.Getenv("PORT"); v != "" {
 		port = v
 	}
