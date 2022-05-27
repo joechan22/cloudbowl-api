@@ -379,3 +379,13 @@ func canHit(geo geoInfo) bool {
 	return false
 }
 
+//TODO need to solve if it is being trapped
+func chkRun(data StateUpdate) string {
+	selfLink := data.Links.Self.Href
+	states := data.Arena.State
+	myInfo := states[selfLink]
+	if myInfo.WasHit {
+		return randMove(data)
+	}
+	return ""
+}
