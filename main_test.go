@@ -18,7 +18,7 @@ func TestThrow(t *testing.T){
 		}
 	}
 	`)
-	var arena ArenaUpdate
+	var arena StateUpdate
 	err := json.Unmarshal(text, &arena)
     if err != nil {
         panic(err)
@@ -44,7 +44,7 @@ func TestRight(t *testing.T){
 		}
 	}
 	`)
-	var arena ArenaUpdate
+	var arena StateUpdate
 	err := json.Unmarshal(text, &arena)
     if err != nil {
         panic(err)
@@ -70,7 +70,7 @@ func TestLeft(t *testing.T){
 		}
 	}
 	`)
-	var arena ArenaUpdate
+	var arena StateUpdate
 	err := json.Unmarshal(text, &arena)
     if err != nil {
         panic(err)
@@ -98,7 +98,7 @@ func TestNotThrow(t *testing.T){
 		}
 	}
 	`)
-	var arena ArenaUpdate
+	var arena StateUpdate
 	err := json.Unmarshal(text, &arena)
     if err != nil {
         panic(err)
