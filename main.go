@@ -16,7 +16,7 @@ var (
 	leftCMD string = "L"
 	rightCMD string = "R"
 	actions []string = []string{"L", "R", "F"}
-	consecutive int = 18		// this number needed to change
+	consecutive int = 50		// this number needed to change
 	hitRange = 3
 	totalAttacks = 0
 )
@@ -68,6 +68,13 @@ func decisionTree(arena StateUpdate) (response string) {
 		lastS = lastState{"-", "-", 0}
 	}
 	log.Println("last state ", lastS)
+	// if chkRun(arena) {
+	// 	log.Println("being hit, running ")
+	// 	next := randMove(arena)
+	// 	lastS.lastAction = next
+	// 	return next
+	// }
+
 	target := canThrow(arena)
 	if target != "" {
 		if target != lastS.lastTarget {
@@ -380,12 +387,12 @@ func canHit(geo geoInfo) bool {
 }
 
 //TODO need to solve if it is being trapped
-func chkRun(data StateUpdate) string {
+func chkRun(data StateUpdate) bool {
 	selfLink := data.Links.Self.Href
 	states := data.Arena.State
 	myInfo := states[selfLink]
 	if myInfo.WasHit {
-		return randMove(data)
+		return true
 	}
-	return ""
+	return false
 }
