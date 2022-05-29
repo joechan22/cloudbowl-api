@@ -68,7 +68,7 @@ func decisionTree(arena StateUpdate) (response string) {
 		lastS = lastState{"-", "-", 0}
 	}
 	log.Println("last state ", lastS)
-	// if chkRun(arena) {
+	// if chkRun(arena) && !chkArd(arena) {
 	// 	log.Println("being hit, running ")
 	// 	next := randMove(arena)
 	// 	lastS.lastAction = next
@@ -254,7 +254,7 @@ func randMove(data StateUpdate) (action string) {
 	switch myInfo.Direction {
 	case "N":
 		if nextAction == forwardCMD {
-			if myInfo.X == 0 {
+			if myInfo.Y == 0 {
 				nextAction = rightCMD
 			} else {
 				for _, v := range states {
@@ -393,6 +393,37 @@ func chkRun(data StateUpdate) bool {
 	myInfo := states[selfLink]
 	if myInfo.WasHit {
 		return true
+	}
+	return false
+}
+
+//TODO check around if there is any player
+func chkArd(data StateUpdate) bool {
+	selfLink := data.Links.Self.Href
+	states := data.Arena.State
+	myInfo := states[selfLink]
+	myX := myInfo.X
+	myY := myInfo.Y
+	cnt := 0
+	for k, v := range states {
+		if k == selfLink {
+			continue
+		}
+		if myX == 0 && myY == 0 && cnt == 2 {
+			return true
+		} else if myX == data.Arena.Dimensions[0] && myY == data.Arena.Dimensions[1] && cnt == 2 {
+			return true
+		} else if myX == 0 && myY != 0 && cnt == 3 {
+			return true
+		} else if myX != 0 && myY == data.Arena.Dimensions[1] && cnt == 3 {
+			return true
+		} else if cnt == 4 {
+			return true
+		}
+		if (myX == v.X && myY + 1 == v.Y ) || (myX == v.X && myY - 1 == v.Y ) || (myX - 1 == v.X && myY == v.Y ) || (myX + 1 == v.X && myY == v.Y ) {
+			cnt += 1
+		}
+		
 	}
 	return false
 }
