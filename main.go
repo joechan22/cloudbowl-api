@@ -109,7 +109,7 @@ func getNearest(data StateUpdate, depth int) (action string) {
 	myInfo := states[selfLink]
 
 	alterWay := ""
-	copySet := data		// copy the set from request data
+	copySet := data		// copy the set from request data **issue** change the original dataset
 
 	//for moving forward
 	myDirection := myInfo.Direction
