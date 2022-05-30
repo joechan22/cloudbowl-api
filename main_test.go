@@ -12,7 +12,7 @@ func TestThrow(t *testing.T){
 		"arena": { 
 			"dims": [4,3],
 			"state": {
-				"https://MY_URL": { "x": 2, "y": 2, "direction": "N"},
+				"https://MY_URL": { "x": 2, "y": 2, "wasHit": false, "direction":  "N"},
 				"https://A_PLAYERS_URL": { "x": 2, "y": 1}
 			}
 		}
@@ -39,7 +39,7 @@ func TestRight(t *testing.T){
 		"arena": { 
 			"dims": [3,2], 
 			"state": {
-				"https://MY_URL": { "x": 2, "y": 1, "direction": "S"}
+				"https://MY_URL": { "x": 2, "y": 1, "wasHit": false, "direction":  "S"}
 			}
 		}
 	}
@@ -65,7 +65,7 @@ func TestLeft(t *testing.T){
 		"arena": { 
 			"dims": [3,2], 
 			"state": {
-				"https://MY_URL": { "x": 2, "y": 1, "direction": "E"}
+				"https://MY_URL": { "x": 2, "y": 1, "wasHit": false, "direction":  "E"}
 			}
 		}
 	}
@@ -92,8 +92,8 @@ func TestNotThrow(t *testing.T){
 		"arena": { 
 			"dims": [4,3],
 			"state": {
-				"https://MY_URL": { "x": 1, "y": 1, "direction": "N"},
-				"https://A_PLAYERS_URL": { "x": 2, "y": 1, "direction": "N"}
+				"https://MY_URL": { "x": 1, "y": 1, "wasHit": false, "direction":  "N"},
+				"https://A_PLAYERS_URL": { "x": 2, "y": 1, "wasHit": false, "direction":  "N"}
 			}
 		}
 	}
