@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 	"reflect"
+
+	// "github.com/jinzhu/copier"
 )
 
 var (
@@ -22,6 +24,7 @@ var (
 )
 
 var lastS = lastState{}
+var gArena PlayerState
 
 func main() {
 	port := "8080"
@@ -67,6 +70,8 @@ func decisionTree(arena StateUpdate) (response string) {
 	if lastS.IsEmpty() {
 		lastS = lastState{"-", "-", 0}
 	}
+	selfLink := arena.Links.Self.Href
+	gArena = arena.Arena.State[selfLink]
 	log.Println("last state ", lastS)
 	// if chkRun(arena) && !chkArd(arena) {
 	// 	log.Println("being hit, running ")
@@ -94,6 +99,9 @@ func decisionTree(arena StateUpdate) (response string) {
 		return action
 	}
 
+	//for fear that the data is changed by getNearest()
+	arena.Arena.State[selfLink] = gArena
+
 	action = randMove(arena)
 	lastS.lastAction = action
 	return action
@@ -108,8 +116,11 @@ func getNearest(data StateUpdate, depth int) (action string) {
 	states := data.Arena.State
 	myInfo := states[selfLink]
 
+	var copySet StateUpdate
+	copySet = data
+	// copier.CopyWithOption(&copySet, &data, copier.Option{IgnoreEmpty: true, DeepCopy: true}) // deep copy with copier
+
 	alterWay := ""
-	copySet := data		// copy the set from request data **issue** change the original dataset
 
 	//for moving forward
 	myDirection := myInfo.Direction
@@ -409,6 +420,9 @@ func chkArd(data StateUpdate) bool {
 		if k == selfLink {
 			continue
 		}
+		if (myX == v.X && myY+1 == v.Y) || (myX == v.X && myY-1 == v.Y) || (myX-1 == v.X && myY == v.Y) || (myX+1 == v.X && myY == v.Y) {
+			cnt += 1
+		}
 		if myX == 0 && myY == 0 && cnt == 2 {
 			return true
 		} else if myX == data.Arena.Dimensions[0] && myY == data.Arena.Dimensions[1] && cnt == 2 {
@@ -420,10 +434,7 @@ func chkArd(data StateUpdate) bool {
 		} else if cnt == 4 {
 			return true
 		}
-		if (myX == v.X && myY + 1 == v.Y ) || (myX == v.X && myY - 1 == v.Y ) || (myX - 1 == v.X && myY == v.Y ) || (myX + 1 == v.X && myY == v.Y ) {
-			cnt += 1
-		}
-		
+
 	}
 	return false
 }
