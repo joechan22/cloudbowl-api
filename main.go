@@ -416,7 +416,9 @@ func chkArd(data StateUpdate) bool {
 	myX := myInfo.X
 	myY := myInfo.Y
 	cnt := 0
+	players := 0	// counting the number of players
 	for k, v := range states {
+		players += 1
 		if k == selfLink {
 			continue
 		}
@@ -435,6 +437,9 @@ func chkArd(data StateUpdate) bool {
 			return true
 		}
 
+	}
+	if players <= 2 {
+		return true
 	}
 	return false
 }
