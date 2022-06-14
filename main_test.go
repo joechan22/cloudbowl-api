@@ -170,3 +170,60 @@ func TestTrap2(t *testing.T) {
 		t.Errorf("got %q but expected T", result)
 	}
 }
+
+func TestHit(t *testing.T) {
+
+	text := []byte(`
+	{
+		"test": "dont throw north",
+		"_links": { "self": { "href": "https://MY_URL" } },
+		"arena": { 
+			"dims": [4,3],
+			"state": {
+				"https://MY_URL": { "x": 0, "y": 0, "direction": "S", "wasHit": true},
+				"https://A_PLAYERS_URL": { "x": 0, "y": 1, "direction": "N"}
+			}
+		}
+	}
+	`)
+	var arena StateUpdate
+	err := json.Unmarshal(text, &arena)
+	if err != nil {
+		panic(err)
+	}
+	result := decisionTree(arena)
+	expected := "T"
+
+	if result != expected {
+		t.Errorf("got %q but expected T", result)
+	}
+}
+
+func TestHit2(t *testing.T) {
+
+	text := []byte(`
+	{
+		"test": "dont throw north",
+		"_links": { "self": { "href": "https://MY_URL" } },
+		"arena": { 
+			"dims": [4,3],
+			"state": {
+				"https://MY_URL": { "x": 0, "y": 0, "direction": "S", "wasHit": true},
+				"https://A_PLAYERS_URL": { "x": 0, "y": 1, "direction": "N"},
+				"https://A_PLAYERS_URL2": { "x": 1, "y": 0, "direction": "W"}
+			}
+		}
+	}
+	`)
+	var arena StateUpdate
+	err := json.Unmarshal(text, &arena)
+	if err != nil {
+		panic(err)
+	}
+	result := decisionTree(arena)
+	expected := "T"
+
+	if result != expected {
+		t.Errorf("got %q but expected T", result)
+	}
+}

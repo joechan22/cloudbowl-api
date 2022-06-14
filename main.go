@@ -75,12 +75,12 @@ func decisionTree(arena StateUpdate) (response string) {
 	selfLink := arena.Links.Self.Href
 	gArena = arena.Arena.State[selfLink]
 	log.Println("last state ", lastS)
-	// if chkRun(arena) && !chkArd(arena) {
-	// 	log.Println("being hit, running ")
-	// 	next := randMove(arena)
-	// 	lastS.lastAction = next
-	// 	return next
-	// }
+	if chkRun(arena) && chkArd(arena) {
+		log.Println("being hit, running ")
+		next := randMove(arena)
+		lastS.lastAction = next
+		return next
+	}
 
 	target := canThrow(arena)
 	if target != "" {
@@ -428,20 +428,20 @@ func chkArd(data StateUpdate) bool {
 			cnt += 1
 		}
 		if myX == 0 && myY == 0 && cnt == 2 {
-			return true
+			return false
 		} else if myX == data.Arena.Dimensions[0] && myY == data.Arena.Dimensions[1] && cnt == 2 {
-			return true
+			return false
 		} else if myX == 0 && myY != 0 && cnt == 3 {
-			return true
+			return false
 		} else if myX != 0 && myY == data.Arena.Dimensions[1] && cnt == 3 {
-			return true
+			return false
 		} else if cnt == 4 {
-			return true
+			return false
 		}
 
 	}
 	if players <= 2 {
-		return true
+		return false
 	}
-	return false
+	return true
 }
