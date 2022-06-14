@@ -57,6 +57,8 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	}
 
 	resp1 := decisionTree(v)
+	// rand := rand2.Intn(3)
+	// resp1 := actions[rand]
 	fmt.Fprint(w, resp1)
 
 }
