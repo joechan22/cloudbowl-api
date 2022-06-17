@@ -56,9 +56,10 @@ func handler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	resp1 := decisionTree(v)
-	// rand := rand2.Intn(3)
-	// resp1 := actions[rand]
+	// resp1 := decisionTree(v)
+	rand := rand2.Intn(3)
+	resp1 := actions[rand]
+	log.Println("last update ", v)
 	fmt.Fprint(w, resp1)
 
 }
