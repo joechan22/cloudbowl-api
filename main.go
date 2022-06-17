@@ -41,7 +41,7 @@ func main() {
 func handler(w http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		fmt.Fprint(w, "only support HTTP POST")
+		fmt.Fprint(w, "only support HTTP POST6666666")
 		return
 	}
 
