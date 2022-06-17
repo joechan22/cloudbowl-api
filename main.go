@@ -83,36 +83,30 @@ func decisionTree(arena StateUpdate) (response string) {
 		return next
 	}
 
-	rand := rand2.Intn(3)
-	action := actions[rand]
+	target := canThrow(arena)
+	if target != "" {
+		if target != lastS.lastTarget {
+			lastS = lastState{target, throwCMD, 1}
+			return throwCMD
+		}
+		if lastS.attacks <= consecutive {
+			totalAttacks =  lastS.attacks+1
+			lastS = lastState{target, throwCMD, totalAttacks}
+			return throwCMD
+		}
+	}
 
+	action := getNearest(arena, 0)
+	if action != "" {
+		lastS.lastAction = action
+		return action
+	}
 
-	// should be re-enabled
+	//for fear that the data is changed by getNearest()
+	arena.Arena.State[selfLink] = gArena
 
-	// target := canThrow(arena)
-	// if target != "" {
-	// 	if target != lastS.lastTarget {
-	// 		lastS = lastState{target, throwCMD, 1}
-	// 		return throwCMD
-	// 	}
-	// 	if lastS.attacks <= consecutive {
-	// 		totalAttacks =  lastS.attacks+1
-	// 		lastS = lastState{target, throwCMD, totalAttacks}
-	// 		return throwCMD
-	// 	}
-	// }
-
-	// action := getNearest(arena, 0)
-	// if action != "" {
-	// 	lastS.lastAction = action
-	// 	return action
-	// }
-
-	// //for fear that the data is changed by getNearest()
-	// arena.Arena.State[selfLink] = gArena
-
-	// action = randMove(arena)
-	// lastS.lastAction = action
+	action = randMove(arena)
+	lastS.lastAction = action
 	return action
 }
 
