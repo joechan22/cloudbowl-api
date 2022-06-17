@@ -18,7 +18,7 @@ var (
 	leftCMD string = "L"
 	rightCMD string = "R"
 	actions []string = []string{"L", "R", "F"}
-	consecutive int = 50		// this number needed to change
+	consecutive int = 200		// this number needed to change
 	hitRange = 3
 	totalAttacks = 0
 )
@@ -56,10 +56,10 @@ func handler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// resp1 := decisionTree(v)
-	rand := rand2.Intn(3)
-	resp1 := actions[rand]
-	log.Println("last update ", v)
+	resp1 := decisionTree(v)
+	// rand := rand2.Intn(3)
+	// resp1 := actions[rand]
+	// log.Println("last update ", v)
 	fmt.Fprint(w, resp1)
 
 }
@@ -83,30 +83,32 @@ func decisionTree(arena StateUpdate) (response string) {
 		return next
 	}
 
-	target := canThrow(arena)
-	if target != "" {
-		if target != lastS.lastTarget {
-			lastS = lastState{target, throwCMD, 1}
-			return throwCMD
-		}
-		if lastS.attacks <= consecutive {
-			totalAttacks =  lastS.attacks+1
-			lastS = lastState{target, throwCMD, totalAttacks}
-			return throwCMD
-		}
-	}
+	// should be re-enabled
+	
+	// target := canThrow(arena)
+	// if target != "" {
+	// 	if target != lastS.lastTarget {
+	// 		lastS = lastState{target, throwCMD, 1}
+	// 		return throwCMD
+	// 	}
+	// 	if lastS.attacks <= consecutive {
+	// 		totalAttacks =  lastS.attacks+1
+	// 		lastS = lastState{target, throwCMD, totalAttacks}
+	// 		return throwCMD
+	// 	}
+	// }
 
-	action := getNearest(arena, 0)
-	if action != "" {
-		lastS.lastAction = action
-		return action
-	}
+	// action := getNearest(arena, 0)
+	// if action != "" {
+	// 	lastS.lastAction = action
+	// 	return action
+	// }
 
-	//for fear that the data is changed by getNearest()
-	arena.Arena.State[selfLink] = gArena
+	// //for fear that the data is changed by getNearest()
+	// arena.Arena.State[selfLink] = gArena
 
-	action = randMove(arena)
-	lastS.lastAction = action
+	// action = randMove(arena)
+	// lastS.lastAction = action
 	return action
 }
 
