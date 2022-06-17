@@ -83,8 +83,12 @@ func decisionTree(arena StateUpdate) (response string) {
 		return next
 	}
 
+	rand := rand2.Intn(3)
+	action := actions[rand]
+
+
 	// should be re-enabled
-	
+
 	// target := canThrow(arena)
 	// if target != "" {
 	// 	if target != lastS.lastTarget {
